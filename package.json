@@ -1,0 +1,15 @@
+{
+  "name": "nice-date-picker",
+  "version": "1.0.0",
+  "description": "nice date picker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git"
+  },
+  "author": "412537738@qq.com",
+  "license": "MIT"
+}

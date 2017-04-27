@@ -1,0 +1,73 @@
+.nice-date-picker-warpper{
+    width:322px;
+    background-color:#999;
+    font-family: Arial;
+    padding:10px;
+    border-radius:5px;
+}
+.nice-date-picker-header{
+    width:100%;
+    height:40px;
+    font-size:0;
+    position:relative;
+}
+.nice-date-picker-header span,a{
+    display:inline-block;
+    height:40px;
+    line-height:40px;
+}
+.nice-date-picker-header .prev-date-btn,.next-date-btn{
+    font-size:18px;
+    width:40px;
+    text-align:center;
+    color:#fff;
+    text-decoration: none;
+}
+.nice-date-picker-header .prev-date-btn{
+    position:absolute;
+    left:0px;
+    top:0px;
+}
+.nice-date-picker-header .next-date-btn{
+    position:absolute;
+    right:0px;
+    top:0px;
+}
+.nice-date-title{
+    width:100%;
+    font-size:18px;
+    color:#fff;
+    text-align:center;
+}
+.nice-date-picker-body{
+    width:100%;
+}
+.nice-date-picker-body tr{
+    width:100%;
+    height:40px;
+}
+.nice-date-picker-body tr th{
+    width:46px;
+    height:40px;
+    color:#fff;
+    line-height:40px;
+    text-align:center;
+    font-weight:100;
+}
+.nice-date-picker-body tr td{
+    width:46px;
+    height:40px;
+    color:#fff;
+    line-height:40px;
+    text-align:center;
+}
+.nice-date-picker-body tr .nice-gray{
+   opacity:.5;
+}
+.nice-date-picker-body tr .nice-normal{
+    cursor:pointer;
+}
+.nice-date-picker-body tr .nice-current{
+    background:#333;
+    border-radius:5px;
+}
