@@ -62,12 +62,16 @@
     text-align:center;
 }
 .nice-date-picker-body tr .nice-gray{
-   opacity:.5;
+   opacity:.3;
 }
 .nice-date-picker-body tr .nice-normal{
     cursor:pointer;
 }
 .nice-date-picker-body tr .nice-current{
     background:#333;
+    border-radius:5px;
+}
+.nice-date-picker-body tr .nice-active{
+    background:#666;
     border-radius:5px;
 }

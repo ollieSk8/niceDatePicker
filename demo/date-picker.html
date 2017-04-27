@@ -8,21 +8,38 @@
         a{
             text-underline: none;
         }
-        #app{
-            padding:350px;
+        #calendar1{
+            padding:10px;
+            float: left;
+        }
+        #calendar2{
+            padding:10px;
+            float: left;
         }
     </style>
     <link rel="stylesheet" href="../nice-date-picker.css">
+    <script src="../nice-date-picker.js"></script>
 </head>
 <body>
-   <div id="app">
-
-   </div>
-<script src="../nice-date-picker.js"></script>
+<div id="calendar1"></div>
+<div id="calendar2"></div>
 <script>
-    niceDatePicker.init({
-        dom:document.getElementById('app')
-    })
+
+    new niceDatePicker({
+        dom:document.getElementById('calendar1'),
+        onClickDate:function(date){
+            console.log('your selected '+date);
+        }
+    });
+
+    new niceDatePicker({
+        dom:document.getElementById('calendar2'),
+        year:2017,
+        month:5,
+        onClickDate:function(date){
+            console.log('your selected '+date);
+        }
+    });
 </script>
 </body>
 </html>
