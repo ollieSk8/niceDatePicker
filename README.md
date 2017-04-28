@@ -4,7 +4,7 @@ Nice DatePicker with support for date ranges and no jquery dependency, easy styl
 
 # Example
 
-[Demo Page](https://github.com/ollieSk8.github.io/niceDatePicker)
+[Demo Page](https://olliesk8.github.io/niceDatePicker/)
 
 # Use Setup
 
