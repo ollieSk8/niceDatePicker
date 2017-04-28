@@ -9,9 +9,13 @@
 }(this, function () {
     'use strict';
 
-    var niceDatePicker = {};
-    var $warpper, monthData;
-    niceDatePicker.getMonthData = function (year, month) {
+    var niceDatePicker = function($params){
+        this.$warpper=null;
+        this.monthData=null;
+        this.init($params);
+    };
+
+    niceDatePicker.prototype.getMonthData = function (year, month) {
         var year, month;
         var ret = [];
 
@@ -97,13 +101,13 @@
         };
     };
 
-    niceDatePicker.buildUi = function (year, month) {
-        monthData = niceDatePicker.getMonthData(year, month);
+     niceDatePicker.prototype.buildUi = function (year, month) {
+        this.monthData = this.getMonthData(year, month);
 
         var html = '<div class="nice-date-picker-warpper">' +
             '<div class="nice-date-picker-header">' +
             '<a href="javascript:;" class="prev-date-btn">&lt;</a>' +
-            '<span class="nice-date-title">' + monthData.year + '年 - ' + monthData.month + '月</span>' +
+            '<span class="nice-date-title">' + this.monthData.year + '年 - ' + this.monthData.month + '月</span>' +
             '<a href="javascript:;" class="next-date-btn">&gt;</a>' +
             '</div>' +
             '<div class="nice-date-picker-body">' +
@@ -121,11 +125,11 @@
             '</thead>' +
             '<tbody>';
 
-        for (var i = 0; i < monthData.date.length; i++) {
+        for (var i = 0; i < this.monthData.date.length; i++) {
             if (i % 7 === 0) {
                 html += '<tr>';
             }
-            html += '<td class="' + monthData.date[i].styleCls + '">' + monthData.date[i].showDate + '</td>';
+            html += '<td class="' + this.monthData.date[i].styleCls + '" data-date="'+this.monthData.year+'/'+this.monthData.month+'/'+this.monthData.date[i].showDate+'">' + this.monthData.date[i].showDate + '</td>';
             if (i % 7 === 6) {
                 html += '</tr>';
             }
@@ -141,13 +145,16 @@
 
     };
 
-    niceDatePicker.render = function (direction) {
+     niceDatePicker.prototype.render = function (direction,$params) {
         var year, month;
-        if (monthData) {
+        if (this.monthData) {
 
-            year = monthData.year;
-            month = monthData.month;
+            year = this.monthData.year;
+            month = this.monthData.month;
 
+        }else{
+            year=$params.year;
+            month=$params.month;
         }
         if (direction === 'prev') {
             month--;
@@ -160,23 +167,43 @@
             month++;
 
         }
-        var html = niceDatePicker.buildUi(year, month);
-        $warpper.innerHTML = html;
+        var html = this.buildUi(year, month);
+        this.$warpper.innerHTML = html;
     };
-    niceDatePicker.init = function ($params) {
-        $warpper = $params.dom;
-        niceDatePicker.render();
-        $warpper.addEventListener('click', function (e) {
+     niceDatePicker.prototype.init = function ($params) {
+        this.$warpper = $params.dom;
+        this.render('',$params);
+        var _this=this;
+        this.$warpper.addEventListener('click', function (e) {
             var $target = e.target;
             if ($target.classList.contains('prev-date-btn')) {
 
-                niceDatePicker.render('prev');
+                _this.render('prev');
 
             }
             if ($target.classList.contains('next-date-btn')) {
 
-                niceDatePicker.render('next');
+                _this.render('next');
 
+            }
+             if ($target.classList.contains('nice-normal')) {
+
+                $params.onClickDate($target.getAttribute('data-date') );
+
+            }
+        }, false);
+        this.$warpper.addEventListener('mouseover', function (e) {
+            var $target = e.target;
+            if ($target.classList.contains('nice-normal')) {
+
+                $target.classList.add('nice-active');
+            }
+        }, false);
+         this.$warpper.addEventListener('mouseout', function (e) {
+            var $target = e.target;
+            if ($target.classList.contains('nice-normal')) {
+
+                $target.classList.remove('nice-active');
             }
             if ($target.classList.contains('nice-normal')) {
 
@@ -184,14 +211,6 @@
 
             }
         }, false);
-        /*$warpper.addEventListener('click', function (e) {
-
-            if ($target.classList.contains('nice-normal')) {
-
-                alert(monthData.year+'-'+monthData.month)
-
-            }
-        }, false);*/
 
     };
     return niceDatePicker;
