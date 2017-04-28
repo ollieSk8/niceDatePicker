@@ -178,7 +178,20 @@
                 niceDatePicker.render('next');
 
             }
+            if ($target.classList.contains('nice-normal')) {
+
+                alert(monthData.year+'-'+monthData.month)
+
+            }
         }, false);
+        /*$warpper.addEventListener('click', function (e) {
+
+            if ($target.classList.contains('nice-normal')) {
+
+                alert(monthData.year+'-'+monthData.month)
+
+            }
+        }, false);*/
 
     };
     return niceDatePicker;
