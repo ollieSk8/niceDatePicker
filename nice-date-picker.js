@@ -9,10 +9,11 @@
 }(this, function () {
     'use strict';
 
-    var niceDatePicker = function($params){
-        this.$warpper=null;
-        this.monthData=null;
-        this.init($params);
+    var niceDatePicker = function ($params) {
+        this.$warpper = null;
+        this.monthData = null;
+        this.$params = $params;
+        this.init(this.$params);
     };
 
     niceDatePicker.prototype.getMonthData = function (year, month) {
@@ -101,27 +102,46 @@
         };
     };
 
-     niceDatePicker.prototype.buildUi = function (year, month) {
+    niceDatePicker.prototype.buildUi = function (year, month) {
         this.monthData = this.getMonthData(year, month);
+        this.dayWords = [['一', '二', '三', '四', '五', '六', '日'], ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']];
+        this.enMonthsWords = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 
         var html = '<div class="nice-date-picker-warpper">' +
             '<div class="nice-date-picker-header">' +
-            '<a href="javascript:;" class="prev-date-btn">&lt;</a>' +
-            '<span class="nice-date-title">' + this.monthData.year + '年 - ' + this.monthData.month + '月</span>' +
-            '<a href="javascript:;" class="next-date-btn">&gt;</a>' +
+            '<a href="javascript:;" class="prev-date-btn">&lt;</a>';
+
+        if (!this.$params.mode) {
+            this.$params.mode = 'zh';
+            html += '<span class="nice-date-title">' + this.monthData.year + '年 - ' + this.monthData.month + '月</span>';
+        } else if (this.$params.mode === 'en') {
+            html += '<span class="nice-date-title">' + this.enMonthsWords[this.monthData.month - 1] + ',' + this.monthData.year + '</span>';
+        } else if (this.$params.mode === 'zh') {
+            html += '<span class="nice-date-title">' + this.monthData.year + '年 - ' + this.monthData.month + '月</span>';
+        }
+
+        html += '<a href="javascript:;" class="next-date-btn">&gt;</a>' +
             '</div>' +
             '<div class="nice-date-picker-body">' +
             '<table>' +
             '<thead>' +
-            '<tr>' +
-            '<th>一</th>' +
-            '<th>二</th>' +
-            '<th>三</th>' +
-            '<th>四</th>' +
-            '<th>五</th>' +
-            '<th>六</th>' +
-            '<th>日</th>' +
-            '</tr>' +
+            '<tr>';
+        if (!this.$params.mode) {
+            this.$params.mode = 'zh';
+            for (var i = 0; i < this.dayWords[0].length; i++) {
+                html += '<th>' + this.dayWords[0][i] + '</th>';
+            }
+        } else if (this.$params.mode === 'en') {
+            for (var i = 0; i < this.dayWords[1].length; i++) {
+                html += '<th>' + this.dayWords[1][i] + '</th>';
+            }
+        } else if (this.$params.mode === 'zh') {
+            for (var i = 0; i < this.dayWords[0].length; i++) {
+                html += '<th>' + this.dayWords[0][i] + '</th>';
+            }
+        }
+        html += '</tr>' +
             '</thead>' +
             '<tbody>';
 
@@ -129,7 +149,7 @@
             if (i % 7 === 0) {
                 html += '<tr>';
             }
-            html += '<td class="' + this.monthData.date[i].styleCls + '" data-date="'+this.monthData.year+'/'+this.monthData.month+'/'+this.monthData.date[i].showDate+'">' + this.monthData.date[i].showDate + '</td>';
+            html += '<td class="' + this.monthData.date[i].styleCls + '" data-date="' + this.monthData.year + '/' + this.monthData.month + '/' + this.monthData.date[i].showDate + '">' + this.monthData.date[i].showDate + '</td>';
             if (i % 7 === 6) {
                 html += '</tr>';
             }
@@ -145,16 +165,16 @@
 
     };
 
-     niceDatePicker.prototype.render = function (direction,$params) {
+    niceDatePicker.prototype.render = function (direction, $params) {
         var year, month;
         if (this.monthData) {
 
             year = this.monthData.year;
             month = this.monthData.month;
 
-        }else{
-            year=$params.year;
-            month=$params.month;
+        } else {
+            year = $params.year;
+            month = $params.month;
         }
         if (direction === 'prev') {
             month--;
@@ -170,10 +190,10 @@
         var html = this.buildUi(year, month);
         this.$warpper.innerHTML = html;
     };
-     niceDatePicker.prototype.init = function ($params) {
+    niceDatePicker.prototype.init = function ($params) {
         this.$warpper = $params.dom;
-        this.render('',$params);
-        var _this=this;
+        this.render('', $params);
+        var _this = this;
         this.$warpper.addEventListener('click', function (e) {
             var $target = e.target;
             if ($target.classList.contains('prev-date-btn')) {
@@ -186,9 +206,9 @@
                 _this.render('next');
 
             }
-             if ($target.classList.contains('nice-normal')) {
+            if ($target.classList.contains('nice-normal')) {
 
-                $params.onClickDate($target.getAttribute('data-date') );
+                $params.onClickDate($target.getAttribute('data-date'));
 
             }
         }, false);
@@ -199,17 +219,13 @@
                 $target.classList.add('nice-active');
             }
         }, false);
-         this.$warpper.addEventListener('mouseout', function (e) {
+        this.$warpper.addEventListener('mouseout', function (e) {
             var $target = e.target;
             if ($target.classList.contains('nice-normal')) {
 
                 $target.classList.remove('nice-active');
             }
-            if ($target.classList.contains('nice-normal')) {
 
-                alert(monthData.year+'-'+monthData.month)
-
-            }
         }, false);
 
     };
