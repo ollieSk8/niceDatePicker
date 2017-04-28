@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>date-picker-demo</title>
+    <style>
+        *{margin:0;padding:0;}
+        a{
+            text-underline: none;
+        }
+        .container{
+            width:762px;
+            margin:0 auto;
+        }
+        #calendar1{
+            padding:10px;
+            float: left;
+        }
+        #calendar2{
+            padding:10px;
+            float: left;
+        }
+        .calendar1-msg,.calendar2-msg{
+            width:100%;
+            height:30px;
+            line-height:30px;
+            color:#000;
+            text-align: center;
+            font-size:14px;
+            display:block;
+        }
+        h1{
+            width:100%;
+            height:40px;
+            line-height:40px;
+            font-family: Arial;
+            text-align: center;
+            padding-top:50px;
+
+        }
+        h4{
+            width:100%;
+            height:30px;
+            line-height:30px;
+            font-weight: normal;
+            padding-bottom:10px;
+        }
+        .btn{
+            width:200px;
+            height:40px;
+            line-height:40px;
+            text-align: center;
+            border-radius:5px;
+            background-color:#f00;
+            text-decoration: none;
+            color:#fff;
+            font-size:14px;
+            margin:0 auto;
+            display: block;
+            margin-bottom:30px;
+        }
+    </style>
+    <link rel="stylesheet" href="./nice-date-picker.css">
+    <script src="./nice-date-picker.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Nice Date Picker Example</h1>
+    <h4>Nice DatePicker with support for date ranges and no jquery used, easy styling and more.</h4>
+    <a href="https://github.com/ollieSk8/niceDatePicker" class="btn">View project on GitHub</a>
+    <div id="calendar1">
+        <div id="calendar1-wrapper1"></div>
+        <span class="calendar1-msg"></span>
+    </div>
+    <div id="calendar2">
+        <div id="calendar1-wrapper2"></div>
+        <span class="calendar2-msg"></span>
+    </div>
+
+</div>
+<script>
+
+    new niceDatePicker({
+        dom:document.getElementById('calendar1-wrapper1'),
+        onClickDate:function(date){
+            document.querySelector('.calendar1-msg').innerHTML='calendar1 your selected '+date;
+        }
+    });
+
+    new niceDatePicker({
+        dom:document.getElementById('calendar1-wrapper2'),
+        year:2017,
+        month:5,
+        mode:'en',
+        onClickDate:function(date){
+            document.querySelector('.calendar2-msg').innerHTML='calendar2 your selected '+date;
+        }
+    });
+</script>
+</body>
+</html>
