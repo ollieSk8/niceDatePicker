@@ -11,7 +11,7 @@
     font-size:0;
     position:relative;
 }
-.nice-date-picker-header span,a{
+.nice-date-picker-header span,.nice-date-picker-header a{
     display:inline-block;
     height:40px;
     line-height:40px;
